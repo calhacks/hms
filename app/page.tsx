@@ -1,7 +1,7 @@
 import Head from 'next/head';
-import "./globals.css";
 import Header from "../components/header";
 import Footer from "../components/footer";
+import Link from 'next/link'
 
 export default function Home() {
   return (
@@ -24,11 +24,14 @@ export default function Home() {
             </p>
           </div>
         </div>
-
-        <button className="text-xl bg-background-gray hover:bg-black px-5 py-3 transition-colors">
-          Get Started
-        </button>
+        
+        <Link href="/signin">
+          <button className="text-xl bg-background-gray hover:bg-black px-5 py-3 transition-colors">
+            Get Started
+          </button>
+        </Link>
       </main>
+
       <Footer />
       
     </div>
