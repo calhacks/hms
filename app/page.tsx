@@ -1,7 +1,8 @@
-import Head from 'next/head';
+import Head from "next/head";
 import Header from "../components/header";
 import Footer from "../components/footer";
-import Link from 'next/link'
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -16,24 +17,17 @@ export default function Home() {
       <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
         <div className="bg-white rounded-lg p-10 mx-4 md:mx-0">
           <div className="bg-background-gray px-12 py-20 mb-10">
-            <h1 className="text-6xl font-extrabold">Hackathon Management Suite</h1>
+            <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+              Hackathon Management Suite
+            </h1>
           </div>
-          <div className="bg-background-gray mt-3 px-5 py-5">
-            <p className="text-xl">
-              Small description
-            </p>
-          </div>
+          <Link href="/signin">
+            <Button>Get Started</Button>
+          </Link>
         </div>
-        
-        <Link href="/signin">
-          <button className="text-xl bg-background-gray hover:bg-black px-5 py-3 transition-colors">
-            Get Started
-          </button>
-        </Link>
       </main>
 
       <Footer />
-      
     </div>
   );
 }

@@ -1,7 +1,8 @@
 import Header from "../../components/header";
 import Footer from "../../components/footer";
-import Head from 'next/head';
-import Link from 'next/link';
+import Head from "next/head";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export default function SignIn() {
   return (
@@ -20,14 +21,11 @@ export default function SignIn() {
         </div>
 
         <Link href="/">
-          <button className="text-xl bg-background-gray hover:bg-black px-5 py-3 transition-colors">
-            Back to Home
-          </button>
+          <Button>Back to Home</Button>
         </Link>
       </main>
 
       <Footer />
-      
     </div>
   );
 }
