@@ -8,6 +8,12 @@ export default function Header() {
         <span className="font-medium text-xl">HMS</span>
       </div>
 
+      <Link href="/dashboard">
+        <p className="font-medium text-base hover:text-blue-500 transition-colors">
+          Dashboard
+        </p>
+      </Link>
+
       <Link href="/signin">
         <p className="font-medium text-base hover:text-blue-500 transition-colors">
           Sign In

@@ -11,10 +11,12 @@ import {
   UsersIcon,
   XMarkIcon,
 } from '@heroicons/react/24/outline'
-
+import { Input } from "@/components/ui/input"
+import { InputForm } from "../../components/createHackForm"
+import { Button } from "@/components/ui/button"
 const navigation = [
-  { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
-  { name: 'Team', href: '#', icon: UsersIcon, current: false },
+  { name: 'Hackathons', href: '#', icon: HomeIcon, current: true },
+  { name: 'Team', href: '/', icon: UsersIcon, current: false },
   { name: 'Projects', href: '#', icon: FolderIcon, current: false },
   { name: 'Calendar', href: '#', icon: CalendarIcon, current: false },
   { name: 'Documents', href: '#', icon: DocumentDuplicateIcon, current: false },
@@ -252,7 +254,9 @@ export default function Example() {
         </div>
 
         <main className="py-10 lg:pl-72">
-          <div className="px-4 sm:px-6 lg:px-8">{/* Your content */}</div>
+          <div className="px-4 sm:px-6 lg:px-8">
+            <InputForm />
+          </div>
         </main>
       </div>
     </>
