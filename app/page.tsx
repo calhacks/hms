@@ -1,11 +1,8 @@
 import Head from 'next/head';
 import Header from "../components/header";
 import Footer from "../components/footer";
-import Link from 'next/link';
-import Image from "next/image";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "./api/auth/[...nextauth]/route";
-import { LoginBtn, LogoutBtn } from '@/components/login';
 
 export default async function Home() {
   const session = await getServerSession(authOptions)
@@ -17,7 +14,7 @@ export default async function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Header />
+      <Header loggedIn={!!(session && session.user)}/>
 
       <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
         <div className="bg-white rounded-lg p-10 mx-4 md:mx-0">
@@ -32,7 +29,7 @@ export default async function Home() {
         </div>
 
         <div className="py-4">
-          {(session && session.user) ? (
+          {session && session.user && (
             <div>
               <div className="py-4 text-center">
                 <p>Welcome, {session.user?.name}</p>
@@ -41,19 +38,9 @@ export default async function Home() {
                   <img className="m-auto" alt="profile" src={session.user?.image} />
                 )}
               </div>
-
-              <LogoutBtn />
             </div>
-          ) : (
-            <LoginBtn />
           )}
         </div>
-
-        <Link href="/signin">
-          <button className="text-xl bg-background-gray hover:bg-black px-5 py-3 transition-colors">
-            Get Started
-          </button>
-        </Link>
       </main>
 
       <Footer />
