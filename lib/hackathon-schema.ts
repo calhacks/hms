@@ -13,10 +13,9 @@ export const hackathonSchema = z.object({
     message: "Location must be at least 2 characters.",
   }),
 
-  dateRange: z.object({
-    from: z.date().optional(),
-    to: z.date().optional(),
-  }),
+  start_date: z.date().optional(),
+
+  end_date: z.date().optional(),
 
   timezone: z.string().optional(),
 })

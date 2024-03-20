@@ -27,6 +27,20 @@ export const useHackathons = () => {
         }
       }
 
+    const updateHackathon = async (hackathon: any) => {
+        const { data, error } = await supabase
+          .from('Hackathons')
+          .update(hackathon)
+          .match({ id: hackathon.id });
+    
+        if (error) {
+          console.error('Error updating hackathon:', error);
+        } else {
+          console.log('Hackathon updated successfully:', data);
+          setHackathons(hackathons.map(h => h.id === data[0].id ? data[0] : h));
+        }
+      }
+
     return {
         hackathons,
         getHackathons,

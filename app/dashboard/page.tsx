@@ -30,22 +30,21 @@ export default function page() {
             Your Hackathons
           </h2>
           <div className="hidden md:flex items-center space-x-2">
-            <CalendarDateRangePicker />
             <Link href="/dashboard/create-hackathon" passHref>
               <Button>Create New</Button>
             </Link>
             
           </div>
         </div>
-        <Tabs defaultValue="overview" className="space-y-4">
+        <Tabs defaultValue="active" className="space-y-4">
           <TabsList>
-            <TabsTrigger value="overview">Active</TabsTrigger>
-            <TabsTrigger value="analytics">Past</TabsTrigger>
+            <TabsTrigger value="active">Active</TabsTrigger>
+            <TabsTrigger value="past">Past</TabsTrigger>
           </TabsList>
-          <TabsContent value="overview" className="space-y-4">
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
 
-              {hackathons.map((hackathon) => (
+          <TabsContent value="active" className="space-y-4">
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+              {hackathons.filter(hackathon => new Date(hackathon.end_date) > new Date()).map((hackathon) => (
                 <Card key={hackathon.id}>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">
@@ -55,33 +54,31 @@ export default function page() {
                   <CardContent>
                     <div className="text-2xl font-bold">{hackathon.hackathon_name}</div>
                     <p className="text-xs text-muted-foreground">
-                      Additional information
+                      {hackathon.start_date} to {hackathon.end_date}
                     </p>
                   </CardContent>
                 </Card>
               ))}
-              
             </div>
-            <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-7">
-              <Card className="col-span-4">
-                <CardHeader>
-                  <CardTitle>Overview</CardTitle>
-                </CardHeader>
-                <CardContent className="pl-2">
-                  <Overview />
-                </CardContent>
-              </Card>
-              <Card className="col-span-4 md:col-span-3">
-                <CardHeader>
-                  <CardTitle>Recent Sales</CardTitle>
-                  <CardDescription>
-                    You made 265 sales this month.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <RecentSales />
-                </CardContent>
-              </Card>
+          </TabsContent>
+          
+          <TabsContent value="past" className="space-y-4">
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+              {hackathons.filter(hackathon => new Date(hackathon.end_date) <= new Date()).map((hackathon) => (
+                <Card key={hackathon.id}>
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium">
+                      {hackathon.location}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold">{hackathon.hackathon_name}</div>
+                    <p className="text-xs text-muted-foreground">
+                      {hackathon.start_date} to {hackathon.end_date}
+                    </p>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           </TabsContent>
         </Tabs>
