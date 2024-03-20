@@ -1,10 +1,20 @@
+"use client"
 import Head from "next/head";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { useSupabase } from "@/hooks/useSupabase";
+import { useEffect } from "react";
 
 export default function Home() {
+  const { getSession } = useSupabase();
+
+  useEffect(() => {
+    getSession();
+  }
+  , []);
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
       <Head>

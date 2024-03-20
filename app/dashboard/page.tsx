@@ -1,3 +1,4 @@
+"use client"
 import Link from 'next/link';
 import { CalendarDateRangePicker } from "@/components/date-range-picker";
 import { Overview } from "@/components/overview";
@@ -12,14 +13,21 @@ import {
 } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useHackathons } from '@/hooks/useHackathons';
+import { useEffect } from 'react';
 
 export default function page() {
+  const { hackathons, getHackathons } = useHackathons();
+  useEffect(() => {
+    getHackathons();
+  }, []);
+
   return (
     <ScrollArea className="h-full">
       <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
         <div className="flex items-center justify-between space-y-2">
           <h2 className="text-3xl font-bold tracking-tight">
-            Welcome back to HMS!
+            Your Hackathons
           </h2>
           <div className="hidden md:flex items-center space-x-2">
             <CalendarDateRangePicker />
@@ -31,40 +39,27 @@ export default function page() {
         </div>
         <Tabs defaultValue="overview" className="space-y-4">
           <TabsList>
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="analytics" disabled>Analytics</TabsTrigger>
+            <TabsTrigger value="overview">Active</TabsTrigger>
+            <TabsTrigger value="analytics">Past</TabsTrigger>
           </TabsList>
           <TabsContent value="overview" className="space-y-4">
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">
-                    Cal Hacks 9.0
-                  </CardTitle>
-        
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">Big Text</div>
-                  <p className="text-xs text-muted-foreground">
-                    Small text
-                  </p>
-                </CardContent>
-              </Card>
 
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">
-                    Hackathon 10.0
-                  </CardTitle>
-        
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">Big Text</div>
-                  <p className="text-xs text-muted-foreground">
-                    Small text
-                  </p>
-                </CardContent>
-              </Card>
+              {hackathons.map((hackathon) => (
+                <Card key={hackathon.id}>
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium">
+                      {hackathon.location}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold">{hackathon.hackathon_name}</div>
+                    <p className="text-xs text-muted-foreground">
+                      Additional information
+                    </p>
+                  </CardContent>
+                </Card>
+              ))}
               
             </div>
             <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-7">
