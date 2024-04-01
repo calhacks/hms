@@ -1,11 +1,19 @@
-import Head from 'next/head';
+"use client"
+import Head from "next/head";
 import Header from "../components/header";
 import Footer from "../components/footer";
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "./api/auth/[...nextauth]/route";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { useSupabase } from "@/hooks/useSupabase";
+import { useEffect } from "react";
 
-export default async function Home() {
-  const session = await getServerSession(authOptions)
+export default function Home() {
+  const { getSession } = useSupabase();
+
+  useEffect(() => {
+    getSession();
+  }
+  , []);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
@@ -19,27 +27,13 @@ export default async function Home() {
       <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
         <div className="bg-white rounded-lg p-10 mx-4 md:mx-0">
           <div className="bg-background-gray px-12 py-20 mb-10">
-            <h1 className="text-6xl font-extrabold">Hackathon Management Suite</h1>
+            <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+              Hackathon Management Suite
+            </h1>
           </div>
-          <div className="bg-background-gray mt-3 px-5 py-5">
-            <p className="text-xl">
-              Small description
-            </p>
-          </div>
-        </div>
-
-        <div className="py-4">
-          {session && session.user && (
-            <div>
-              <div className="py-4 text-center">
-                <p>Welcome, {session.user?.name}</p>
-                <p>{session.user?.email}</p>
-                {session.user?.image && (
-                  <img className="m-auto" alt="profile" src={session.user?.image} />
-                )}
-              </div>
-            </div>
-          )}
+          <Link href="/signin">
+            <Button>Get Started</Button>
+          </Link>
         </div>
       </main>
 
