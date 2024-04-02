@@ -35,19 +35,19 @@ import { Input } from "@/components/ui/input"
 import { toast } from "@/components/ui/use-toast"
 import { useRouter } from 'next/navigation'
 
-export function HackathonForm({hackathonId =  null, hackathon} : {hackathonId: String | null | undefined, hackathon: any | undefined}) {
+export function HackathonForm({ hackathonId = null, hackathon }: { hackathonId: String | null | undefined, hackathon: any | undefined }) {
   const router = useRouter()
   const { insertHackathon, updateHackathon } = useHackathons()
   const defaultValues = hackathon ? {
-    start_date: new Date(hackathon.start_date), 
-    end_date: new Date( hackathon.end_date),
-    dateRange: { from: new Date( hackathon.end_date), to:  new Date(hackathon.start_date) },
+    start_date: new Date(hackathon.start_date),
+    end_date: new Date(hackathon.end_date),
     ...hackathon
   } : {
     hackathon_name: "",
     location: "",
-    dateRange: { from: undefined, to: undefined },
     timezone: "",
+    start_date: new Date(),
+    end_date: new Date(),
   };
 
   const form = useForm<HackathonFormValues>({
@@ -56,15 +56,15 @@ export function HackathonForm({hackathonId =  null, hackathon} : {hackathonId: S
     mode: "onChange",
   });
 
-    
+
   function onSubmit(data: HackathonFormValues) {
     console.log(data)
-    if(!hackathonId){
+    if (!hackathonId) {
       insertHackathon(data);
     } else {
-      updateHackathon({...data, id: hackathonId });
+      updateHackathon({ ...data, id: hackathonId });
     }
-    
+
     router.push('/dashboard');
     // toast({
     //   title: "You submitted the following values:",
@@ -79,7 +79,7 @@ export function HackathonForm({hackathonId =  null, hackathon} : {hackathonId: S
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
-        
+
         <FormField
           control={form.control}
           name="hackathon_name"
@@ -93,7 +93,7 @@ export function HackathonForm({hackathonId =  null, hackathon} : {hackathonId: S
             </FormItem>
           )}
         />
-        
+
 
         <FormField
           control={form.control}
@@ -109,7 +109,7 @@ export function HackathonForm({hackathonId =  null, hackathon} : {hackathonId: S
           )}
         />
 
-        
+
         <FormField
           control={form.control}
           name="start_date"
