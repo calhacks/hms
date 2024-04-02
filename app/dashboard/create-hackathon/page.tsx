@@ -1,4 +1,4 @@
-import { CreateHackathonOne } from '../../../components/create-hackathon-form';
+import { HackathonForm } from '../../../components/create-hackathon-form';
 
 
 
@@ -8,7 +8,7 @@ export default function Page() {
             <h2 className="text-3xl font-bold tracking-tight">
                 Create a hackathon
             </h2>
-            <CreateHackathonOne />
+            <HackathonForm />
         </div>
     );
 }

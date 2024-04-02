@@ -74,3 +74,12 @@
     @apply bg-background text-foreground;
   }
 }
+
+input {
+  padding: 4px;
+  border-radius: 4px;
+}
+
+label {
+  font-weight: 600;
+}

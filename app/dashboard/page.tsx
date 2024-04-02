@@ -47,8 +47,11 @@ export default function page() {
               {hackathons.filter(hackathon => new Date(hackathon.end_date) > new Date()).map((hackathon) => (
                 <Card key={hackathon.id}>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">
-                      {hackathon.location}
+                    <CardTitle className="text-sm font-medium flex gap-2 w-full">
+                      <span className='grow'>{hackathon.location}</span>
+                      <Link href={`/dashboard/${hackathon.id}/settings`}>
+                        <i>Edit</i>
+                      </Link>
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
@@ -68,7 +71,7 @@ export default function page() {
                 <Card key={hackathon.id}>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">
-                      {hackathon.location}
+                      {hackathon.location} {hackathon.id}
                     </CardTitle>
                   </CardHeader>
                   <CardContent>

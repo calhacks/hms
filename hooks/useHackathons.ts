@@ -1,6 +1,15 @@
 import { supabase } from '@/lib/supabase';
 import { useState } from 'react';
 
+export const getHackathon = async (id: String) => {
+    const { data, error} = await supabase
+    .from('Hackathons')
+    .select('*')
+    .match({ id: id });
+
+    return data[0]
+}
+
 export const useHackathons = () => {
     const [hackathons, setHackathons] = useState<any[]>([]);
     const getHackathons = async () => {
@@ -45,5 +54,8 @@ export const useHackathons = () => {
         hackathons,
         getHackathons,
         insertHackathon,
+        getHackathon,
+        updateHackathon
     };
 }
+

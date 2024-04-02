@@ -35,10 +35,15 @@ import { Input } from "@/components/ui/input"
 import { toast } from "@/components/ui/use-toast"
 import { useRouter } from 'next/navigation'
 
-export function CreateHackathonOne() {
+export function HackathonForm({hackathonId =  null, hackathon} : {hackathonId: String | null | undefined, hackathon: any | undefined}) {
   const router = useRouter()
-  const { insertHackathon } = useHackathons()
-  const defaultValues = {
+  const { insertHackathon, updateHackathon } = useHackathons()
+  const defaultValues = hackathon ? {
+    start_date: new Date(hackathon.start_date), 
+    end_date: new Date( hackathon.end_date),
+    dateRange: { from: new Date( hackathon.end_date), to:  new Date(hackathon.start_date) },
+    ...hackathon
+  } : {
     hackathon_name: "",
     location: "",
     dateRange: { from: undefined, to: undefined },
@@ -53,7 +58,13 @@ export function CreateHackathonOne() {
 
     
   function onSubmit(data: HackathonFormValues) {
-    insertHackathon(data);
+    console.log(data)
+    if(!hackathonId){
+      insertHackathon(data);
+    } else {
+      updateHackathon({...data, id: hackathonId });
+    }
+    
     router.push('/dashboard');
     // toast({
     //   title: "You submitted the following values:",
@@ -192,10 +203,10 @@ export function CreateHackathonOne() {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="pst">PST</SelectItem>
-                  <SelectItem value="mst">MST</SelectItem>
-                  <SelectItem value="cst">CST</SelectItem>
-                  <SelectItem value="est">EST</SelectItem>
+                  <SelectItem value="pst" selected={field.value == "pst"}>PST</SelectItem>
+                  <SelectItem value="mst" selected={field.value == "mst"}>MST</SelectItem>
+                  <SelectItem value="cst" selected={field.value == "cst"}>CST</SelectItem>
+                  <SelectItem value="est" selected={field.value == "est"}>EST</SelectItem>
                 </SelectContent>
               </Select>
               <FormMessage />
