@@ -1,6 +1,5 @@
 "use client"
 import Head from "next/head";
-import Header from "../components/header";
 import Footer from "../components/footer";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -21,8 +20,6 @@ export default function Home() {
         <title>Hackathon Management Suite</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <Header loggedIn={!!(session && session.user)}/>
 
       <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
         <div className="bg-white rounded-lg p-10 mx-4 md:mx-0">
